@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pusat Materi Pelatihan IoT - Sistem Penyiraman Tanaman</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Syntax Highlighting CSS from Prism.js -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <!-- Icons from Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            background: #111827; /* Dark background for contrast */
+            /* Beautiful gradient background */
+            background-image: linear-gradient(to top right, #052a2d, #0b4f6c, #0b4f6c, #207178, #207178, #111827, #111827);
+            background-attachment: fixed;
+        }
+        /* Liquid Glass Card Style */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05); /* Semi-transparent white */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px); /* For Safari */
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            color: #e5e7eb; /* Light gray text for dark background */
+        }
+        .glass-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.1);
+        }
+        .code-container {
+            background-color: #2d2d2d;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border: 1px solid #4a4a4a;
+        }
+        pre[class*="language-"] {
+            padding: 0 !important;
+            margin: 0 !important;
+            background: transparent !important;
+        }
+    </style>
+    <!-- Script moved to head to prevent ReferenceError -->
+    <script>
+        let currentCodeId = null;
+
+        function showCode(id) {
+            const elementToShow = document.getElementById(id);
+            // Add a guard clause to prevent errors if the element doesn't exist
+            if (!elementToShow) {
+                console.error("Element with ID '" + id + "' not found.");
+                return;
+            }
+            const isVisible = elementToShow.style.display === 'block';
+
+            // Hide all code containers first
+            document.querySelectorAll('.code-container').forEach(container => {
+                container.style.display = 'none';
+            });
+
+            // If it was not visible, show it. If it was visible, it's now hidden.
+            if (!isVisible) {
+                elementToShow.style.display = 'block';
+                // Scroll to the code display area
+                elementToShow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                currentCodeId = id;
+            } else {
+                currentCodeId = null;
+            }
+        }
+    </script>
+</head>
+<body class="text-gray-200">
+
+    <div class="container mx-auto p-6 md:p-12">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-white">Pelatihan IoT: Simfoni Penjaga Tanaman</h1>
+            <p class="mt-4 text-lg text-cyan-200">Kumpulan Kode dan Materi untuk "Bertani dengan Rasa"</p>
+        </header>
+
+        <!-- Grid of Sessions -->
+        <h2 class="text-3xl font-bold text-white mb-6 text-center">Materi Sesi</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Sesi 1 & 2 -->
+            <div class="glass-card p-6">
+                <h2 class="text-2xl font-bold text-cyan-300 mb-3">Sesi 1 & 2: Konsep</h2>
+                <p>Memahami visi dan mengenal komponen perangkat keras. Sesi ini fokus pada konsep, belum ada kode.</p>
+            </div>
+
+            <!-- Sesi 3 -->
+            <div class="glass-card p-6">
+                <h2 class="text-2xl font-bold text-cyan-300 mb-3">Sesi 3: Mantra Pertama</h2>
+                <p class="mb-4">Menghidupkan ESP32 untuk pertama kalinya dengan kode "Blink".</p>
+                <a href="javascript:void(0);" onclick="showCode('sesi3_code')" class="text-cyan-400 hover:text-cyan-200 font-semibold">Lihat Kode Blink &rarr;</a>
+            </div>
+
+            <!-- Sesi 4 -->
+            <div class="glass-card p-6">
+                <h2 class="text-2xl font-bold text-cyan-300 mb-3">Sesi 4: Semesta IoT</h2>
+                <p>Mempelajari arsitektur dasar Internet of Things (IoT). Sesi ini fokus pada arsitektur, belum ada kode.</p>
+            </div>
+
+            <!-- Sesi 5 -->
+            <div class="glass-card p-6">
+                <h2 class="text-2xl font-bold text-cyan-300 mb-3">Sesi 5: Indra Perasa</h2>
+                <p class="mb-4">Membaca data sensor kelembapan tanah melalui Serial Monitor.</p>
+                <a href="javascript:void(0);" onclick="showCode('sesi5_code')" class="text-cyan-400 hover:text-cyan-200 font-semibold">Lihat Kode Sensor &rarr;</a>
+            </div>
+
+            <!-- Sesi 6 -->
+            <div class="glass-card p-6">
+                <h2 class="text-2xl font-bold text-cyan-300 mb-3">Sesi 6: Memberi Wajah</h2>
+                <p class="mb-4">Menampilkan data kelembapan pada layar OLED agar mandiri.</p>
+                <a href="javascript:void(0);" onclick="showCode('sesi6_code')" class="text-cyan-400 hover:text-cyan-200 font-semibold">Lihat Kode Layar &rarr;</a>
+            </div>
+
+            <!-- Sesi 7 -->
+            <div class="glass-card p-6">
+                <h2 class="text-2xl font-bold text-cyan-300 mb-3">Sesi 7: Koneksi ke Awan</h2>
+                <p class="mb-4">Menghubungkan ESP32 ke WiFi dan mengirim data sensor ke Adafruit IO.</p>
+                <a href="javascript:void(0);" onclick="showCode('sesi7_code')" class="text-cyan-400 hover:text-cyan-200 font-semibold">Lihat Kode Cloud &rarr;</a>
+            </div>
+
+            <!-- Sesi 8 -->
+            <div class="glass-card p-6">
+                <h2 class="text-2xl font-bold text-cyan-300 mb-3">Sesi 8: Dashboard & Kontrol</h2>
+                <p class="mb-4">Menerima perintah dari dashboard Adafruit IO untuk kontrol manual.</p>
+                <a href="javascript:void(0);" onclick="showCode('sesi8_code')" class="text-cyan-400 hover:text-cyan-200 font-semibold">Lihat Kode Kontrol &rarr;</a>
+            </div>
+
+            <!-- Sesi 9 -->
+            <div class="glass-card p-6">
+                <h2 class="text-2xl font-bold text-cyan-300 mb-3">Sesi 9: Notifikasi Telegram</h2>
+                <p class="mb-4">Mengintegrasikan notifikasi Telegram untuk setiap aksi penyiraman.</p>
+                <a href="javascript:void(0);" onclick="showCode('sesi9_code')" class="text-cyan-400 hover:text-cyan-200 font-semibold">Lihat Kode Notifikasi &rarr;</a>
+            </div>
+        </div>
+
+        <!-- Resources Section -->
+        <h2 class="text-3xl font-bold text-white mt-16 mb-6 text-center">Sumber Daya Tambahan</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <a href="https://github.com/lily-osp/Simfoni-Penjaga-Tanaman" target="_blank" class="glass-card p-6 flex flex-col items-center justify-center text-center">
+                <i class="ph-github-logo text-5xl text-cyan-300 mb-3"></i>
+                <h3 class="text-2xl font-bold text-cyan-300">Repositori GitHub</h3>
+                <p>Lihat kode final dan seluruh aset proyek di GitHub.</p>
+            </a>
+            <a href="https://medium.com/@azzar_budiyanto/merajut-nadi-kehidupan-sebuah-dialog-sunyi-dengan-tanaman-anda-melalui-teknologi-5fc4e816561a" target="_blank" class="glass-card p-6 flex flex-col items-center justify-center text-center">
+                <i class="ph-book-open-text text-5xl text-cyan-300 mb-3"></i>
+                <h3 class="text-2xl font-bold text-cyan-300">Artikel Medium</h3>
+                <p>Baca penjelasan dan filosofi di balik proyek ini lebih dalam.</p>
+            </a>
+            <a href="https://docs.google.com/document/d/1eHHDRAcDAOyC050pKVv48kFpP7kzXjtJ31bRYYtl5CA/edit?usp=sharing" target="_blank" class="glass-card p-6 flex flex-col items-center justify-center text-center">
+                <i class="ph-book-open-text text-5xl text-cyan-300 mb-3"></i>
+                <h3 class="text-2xl font-bold text-cyan-300">Google Docs</h3>
+                <p>Lihat semua materi terkait di Google Docs.</p>
+            </a>
+        </div>
+
+
+        <!-- Code Display Area -->
+        <div id="code-display-area" class="mt-8">
+            <!-- All code snippets are placed here, hidden by default -->
+            <!-- Sesi 3 Code -->
+            <div id="sesi3_code" class="code-container" style="display:none;">
+                <h3 class="text-2xl font-semibold mb-4 text-gray-200">Kode: Sesi 3 - Mantra Pertama (Blink)</h3>
+                <pre><code class="language-cpp">
+//*
+ * KODE UNTUK SESI 3: MANTRA PERTAMA (BLINK)
+ * Tujuan: Memastikan ESP32 bekerja dan dapat di-upload kode.
+ *
+ * Deskripsi:
+ * Kode ini adalah program paling dasar untuk mikrokontroler.
+ * Tujuannya adalah membuat lampu LED kecil yang ada di papan ESP32
+ * (disebut LED_BUILTIN) untuk berkedip (menyala dan mati secara bergantian).
+ * Ini membuktikan bahwa kita bisa berkomunikasi dengan "otak" sang penjaga.
+ *
+ * Cara Kerja:
+ * 1. setup(): Fungsi ini berjalan sekali saat ESP32 pertama kali nyala.
+ * - Kita mengatur pin LED_BUILTIN sebagai OUTPUT, artinya kita akan mengirim sinyal KELUAR dari pin ini.
+ * 2. loop(): Fungsi ini berjalan terus-menerus tanpa henti setelah setup() selesai.
+ * - digitalWrite(LED_BUILTIN, HIGH): Mengirim tegangan tinggi ke LED, membuatnya MENYALA.
+ * - delay(1000): Berhenti sejenak selama 1000 milidetik (1 detik).
+ * - digitalWrite(LED_BUILTIN, LOW): Mengirim tegangan rendah ke LED, membuatnya MATI.
+ * - delay(1000): Berhenti lagi selama 1 detik.
+ * Proses di dalam loop() ini akan terus berulang.
+ */
+
+// Sebagian besar papan ESP32 memiliki LED internal di pin GPIO 2.
+// Jika tidak berhasil, coba ganti LED_BUILTIN dengan angka 2.
+#define LED_BUILTIN 2
+
+void setup() {
+  // Mengatur pin LED sebagai OUTPUT (keluaran)
+  pinMode(LED_BUILTIN, OUTPUT);
+}
+
+void loop() {
+  // Menyalakan LED (HIGH adalah level tegangan untuk menyala)
+  digitalWrite(LED_BUILTIN, HIGH);
+  // Menunggu selama 1 detik
+  delay(1000);
+  // Mematikan LED (LOW adalah level tegangan untuk mati)
+  digitalWrite(LED_BUILTIN, LOW);
+  // Menunggu selama 1 detik
+  delay(1000);
+}
+                </code></pre>
+            </div>
+
+            <!-- Sesi 5 Code -->
+            <div id="sesi5_code" class="code-container" style="display:none;">
+                <h3 class="text-2xl font-semibold mb-4 text-gray-200">Kode: Sesi 5 - Indra Perasa (Sensor)</h3>
+                <pre><code class="language-cpp">
+/*
+ * KODE UNTUK SESI 5: MEMBERI INDRA PERASA
+ * Tujuan: Membaca data dari sensor kelembapan tanah.
+ *
+ * Deskripsi:
+ * Kode ini akan membaca nilai analog dari sensor kelembapan tanah
+ * dan menampilkannya ke Serial Monitor di Arduino IDE.
+ * Serial Monitor berfungsi sebagai "jendela" kita untuk melihat "bisikan"
+ * atau data yang dikirim oleh ESP32.
+ *
+ * Rangkaian:
+ * - VCC sensor -> 3.3V pada ESP32
+ * - GND sensor -> GND pada ESP32
+ * - A0 (Analog Out) sensor -> GPIO 34 pada ESP32 (atau pin ADC lainnya seperti 35, 36, 39)
+ *
+ * Cara Kerja:
+ * 1. const int soilPin = 34;: Kita memberi nama 'soilPin' untuk pin GPIO 34 agar mudah diingat.
+ * 2. setup():
+ * - Serial.begin(115200): Memulai komunikasi serial dengan kecepatan 115200 bps.
+ * Angka ini harus sama dengan yang diatur di Serial Monitor.
+ * 3. loop():
+ * - int nilaiRasa = analogRead(soilPin): Membaca nilai tegangan dari pin sensor.
+ * ESP32 memiliki ADC 12-bit, sehingga nilainya akan berkisar dari 0 hingga 4095.
+ * Biasanya, nilai tinggi berarti kering, dan nilai rendah berarti basah.
+ * - Serial.print("Nilai Kelembapan: "): Mencetak teks ke Serial Monitor.
+ * - Serial.println(nilaiRasa): Mencetak nilai yang dibaca dari sensor, lalu pindah ke baris baru.
+ * - delay(1000): Memberi jeda 1 detik sebelum membaca dan mencetak lagi.
+ */
+
+// Tentukan pin GPIO mana yang terhubung ke output Analog (A0) dari sensor
+const int soilPin = 34;
+
+void setup() {
+  // Mulai komunikasi serial pada baud rate 115200
+  // Pastikan untuk mengatur baud rate yang sama di Serial Monitor Arduino IDE
+  Serial.begin(115200);
+}
+
+void loop() {
+  // Baca nilai analog dari sensor
+  // Nilai akan berkisar antara 0 (sangat basah) hingga 4095 (sangat kering), tergantung sensor
+  int nilaiRasa = analogRead(soilPin);
+
+  // Cetak teks dan nilai ke Serial Monitor
+  Serial.print("Nilai Rasa Tanah: ");
+  Serial.println(nilaiRasa);
+
+  // Tunggu 1 detik sebelum pembacaan berikutnya
+  delay(1000);
+}
+                </code></pre>
+            </div>
+
+            <!-- Sesi 6 Code -->
+            <div id="sesi6_code" class="code-container" style="display:none;">
+                <h3 class="text-2xl font-semibold mb-4 text-gray-200">Kode: Sesi 6 - Memberi Wajah (Layar)</h3>
+                <pre><code class="language-cpp">
+/*
+ * KODE UNTUK SESI 6: MEMBERI WAJAH
+ * Tujuan: Menampilkan data sensor kelembapan pada layar I2C (LCD atau OLED).
+ *
+ * Deskripsi:
+ * Kode ini mengambil data dari sensor dan menampilkannya di layar,
+ * membuat Sang Penjaga lebih mandiri tanpa perlu terhubung ke komputer.
+ *
+ * PENTING:
+ * 1. Instal Library: Buka Library Manager di Arduino IDE (Sketch > Include Library > Manage Libraries)
+ * - Untuk LCD: Instal "LiquidCrystal I2C" by Frank de Brabander.
+ * - Untuk OLED: Instal "Adafruit SSD1306" dan "Adafruit GFX Library".
+ * 2. Pilih Salah Satu: Kode di bawah ini berisi bagian untuk LCD dan OLED.
+ * HAPUS atau BERI TANDA KOMENTAR (//) pada bagian yang tidak Anda gunakan.
+ *
+ * Rangkaian (Sama untuk LCD & OLED I2C):
+ * - VCC layar -> VIN atau 5V pada ESP32
+ * - GND layar -> GND pada ESP32
+ * - SDA layar -> GPIO 21 pada ESP32
+ * - SCL layar -> GPIO 22 pada ESP32
+ * - Sensor Kelembapan tetap terhubung seperti di Sesi 5.
+ */
+
+#include <Wire.h> // Library wajib untuk komunikasi I2C
+
+// --- BAGIAN UNTUK LCD 16x2 I2C ---
+// Hapus komentar di bawah ini jika Anda menggunakan LCD
+// #include <LiquidCrystal_I2C.h>
+// Alamat I2C umum adalah 0x27 atau 0x3F. Coba ganti jika layar tidak terdeteksi.
+// LiquidCrystal_I2C lcd(0x27, 16, 2); // (alamat, kolom, baris)
+
+// --- BAGIAN UNTUK OLED SSD1306 I2C ---
+// Hapus komentar di bawah ini jika Anda menggunakan OLED
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+#define SCREEN_WIDTH 128 // Lebar layar OLED dalam pixel
+#define SCREEN_HEIGHT 64 // Tinggi layar OLED dalam pixel
+// Alamat I2C umum adalah 0x3C atau 0x78.
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
+
+
+// Pin sensor kelembapan
+const int soilPin = 34;
+
+// Variabel untuk kalibrasi (UBAH NILAI INI SESUAI PENGUKURAN ANDA)
+// Ukur nilai sensor saat di udara (kering) dan di dalam air (basah)
+const int nilaiUdara = 4095; // Nilai saat sensor kering
+const int nilaiAir = 1800;   // Nilai saat sensor basah tercelup air
+
+void setup() {
+  Serial.begin(115200);
+
+  // --- INISIALISASI UNTUK LCD ---
+  // Hapus komentar di bawah ini jika Anda menggunakan LCD
+  // lcd.init();
+  // lcd.backlight();
+  // lcd.setCursor(0, 0);
+  // lcd.print("Penjaga Siap!");
+  // delay(2000);
+
+  // --- INISIALISASI UNTUK OLED ---
+  // Hapus komentar di bawah ini jika Anda menggunakan OLED
+  if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+    Serial.println(F("Gagal menemukan OLED"));
+    while(true); // Loop selamanya jika gagal
+  }
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.setCursor(0, 0);
+  display.println("Penjaga Siap!");
+  display.display();
+  delay(2000);
+}
+
+void loop() {
+  int nilaiRasa = analogRead(soilPin);
+
+  // Memetakan nilai sensor ke rentang persentase 0-100%
+  // map(value, fromLow, fromHigh, toLow, toHigh)
+  int persentaseLembap = map(nilaiRasa, nilaiUdara, nilaiAir, 0, 100);
+
+  // Memastikan nilai persentase tidak di luar 0-100
+  if (persentaseLembap > 100) {
+    persentaseLembap = 100;
+  }
+  if (persentaseLembap < 0) {
+    persentaseLembap = 0;
+  }
+
+
+  // --- TAMPILKAN KE LCD ---
+  // Hapus komentar di bawah ini jika Anda menggunakan LCD
+  // lcd.clear();
+  // lcd.setCursor(0, 0); // Kolom 0, Baris 0
+  // lcd.print("Lembap: ");
+  // lcd.print(persentaseLembap);
+  // lcd.print("%");
+  // lcd.setCursor(0, 1); // Kolom 0, Baris 1
+  // if (persentaseLembap < 30) {
+  //   lcd.print("Status: KERING");
+  // } else {
+  //   lcd.print("Status: AMAN");
+  // }
+
+
+  // --- TAMPILKAN KE OLED ---
+  // Hapus komentar di bawah ini jika Anda menggunakan OLED
+  display.clearDisplay();
+  display.setCursor(0, 0);
+  display.setTextSize(2); // Ukuran font lebih besar
+  display.print("Lembap: ");
+  display.print(persentaseLembap);
+  display.println("%");
+  display.setTextSize(1); // Ukuran font normal
+  display.setCursor(0, 25);
+  if (persentaseLembap < 30) {
+    display.println("Status: TANAH KERING");
+  } else if (persentaseLembap > 85) {
+    display.println("Status: TERLALU BASAH");
+  } else {
+    display.println("Status: KONDISI AMAN");
+  }
+  display.display(); // Perintah untuk menampilkan ke layar
+
+  delay(1000);
+}
+                </code></pre>
+            </div>
+
+            <!-- Sesi 7 Code -->
+            <div id="sesi7_code" class="code-container" style="display:none;">
+                <h3 class="text-2xl font-semibold mb-4 text-gray-200">Kode: Sesi 7 - Koneksi ke Awan</h3>
+                <pre><code class="language-cpp">
+/*
+ * KODE UNTUK SESI 7: KONEKSI KE AWAN
+ * Tujuan: Menghubungkan ESP32 ke WiFi dan mengirim data sensor ke Adafruit IO.
+ *
+ * Deskripsi:
+ * Kode ini adalah langkah pertama untuk membuat perangkat kita menjadi "IoT".
+ * Ia akan membaca sensor, menghubungkannya ke internet via WiFi, lalu mengirim
+ * (publish) data kelembapan ke sebuah "feed" di Adafruit IO.
+ *
+ * SEBELUM MEMULAI:
+ * 1. Buat akun di https://io.adafruit.com/
+ * 2. Buat sebuah Feed baru, contohnya dengan nama "kelembapan-tanah".
+ * 3. Di halaman utama Adafruit IO, klik "My Key" atau "AIO Key" untuk mendapatkan
+ * Username dan Active AIO Key Anda.
+ * 4. Instal Library: Buka Library Manager di Arduino IDE dan instal "Adafruit MQTT Library".
+ *
+ * Rangkaian:
+ * - Sama seperti Sesi 6 (Sensor + Layar OLED). Tidak ada perubahan hardware.
+ */
+
+#include <WiFi.h>
+#include "Adafruit_MQTT.h"
+#include "Adafruit_MQTT_Client.h"
+
+// --- PENGATURAN KONEKSI (UBAH SESUAI DATA ANDA) ---
+#define WIFI_SSID       "NAMA_WIFI_ANDA"
+#define WIFI_PASS       "PASSWORD_WIFI_ANDA"
+
+#define AIO_SERVER      "io.adafruit.com"
+#define AIO_SERVERPORT  1883
+#define AIO_USERNAME    "USERNAME_ADAFRUIT_IO_ANDA"
+#define AIO_KEY         "AIO_KEY_ADAFRUIT_IO_ANDA"
+
+// --- PENGATURAN SENSOR & PIN ---
+const int soilPin = 34;
+const int nilaiUdara = 4095;
+const int nilaiAir = 1800;
+
+// Membuat instance WiFiClient
+WiFiClient client;
+
+// Setup koneksi MQTT ke Adafruit IO
+Adafruit_MQTT_Client mqtt(&client, AIO_SERVER, AIO_SERVERPORT, AIO_USERNAME, AIO_KEY);
+
+// Setup Feed untuk mengirim data. Pastikan nama feed sama persis dengan yang di Adafruit IO.
+Adafruit_MQTT_Publish soilMoistureFeed = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/kelembapan-tanah");
+
+void setup() {
+  Serial.begin(115200);
+  Serial.println("Mulai Sesi 7: Koneksi ke Awan...");
+
+  // Koneksi ke WiFi
+  Serial.print("Menghubungkan ke WiFi...");
+  WiFi.begin(WIFI_SSID, WIFI_PASS);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("\nWiFi terhubung!");
+}
+
+void loop() {
+  // Pastikan koneksi ke MQTT server (Adafruit IO) tetap terhubung
+  MQTT_connect();
+
+  // Baca dan kalibrasi sensor
+  int nilaiRasa = analogRead(soilPin);
+  int persentaseLembap = map(nilaiRasa, nilaiUdara, nilaiAir, 0, 100);
+  persentaseLembap = constrain(persentaseLembap, 0, 100);
+
+  Serial.print("Membaca kelembapan: ");
+  Serial.print(persentaseLembap);
+  Serial.println("%");
+
+  // Kirim (publish) data ke feed Adafruit IO
+  Serial.print("Mengirim data ke Adafruit IO...");
+  if (soilMoistureFeed.publish(persentaseLembap)) {
+    Serial.println(" Berhasil!");
+  } else {
+    Serial.println(" Gagal!");
+  }
+
+  // Tunggu 10 detik sebelum mengirim data berikutnya
+  delay(10000);
+}
+
+// Fungsi untuk menghubungkan dan menjaga koneksi ke Adafruit IO
+void MQTT_connect() {
+  int8_t ret;
+
+  // Berhenti jika sudah terhubung.
+  if (mqtt.connected()) {
+    return;
+  }
+
+  Serial.print("Menghubungkan ke MQTT... ");
+  uint8_t retries = 3;
+  while ((ret = mqtt.connect()) != 0) { // connect will return 0 for success
+       Serial.println(mqtt.connectErrorString(ret));
+       Serial.println("Mencoba lagi dalam 5 detik...");
+       mqtt.disconnect();
+       delay(5000);  // tunggu 5 detik
+       retries--;
+       if (retries == 0) {
+         // Gagal terhubung setelah beberapa kali percobaan
+         while (1);
+       }
+  }
+  Serial.println("MQTT Terhubung!");
+}
+
+                </code></pre>
+            </div>
+
+            <!-- Sesi 8 Code -->
+            <div id="sesi8_code" class="code-container" style="display:none;">
+                <h3 class="text-2xl font-semibold mb-4 text-gray-200">Kode: Sesi 8 - Dashboard & Kontrol</h3>
+                <pre><code class="language-cpp">
+/*
+ * KODE UNTUK SESI 8: DASHBOARD & KONTROL JARAK JAUH
+ * Tujuan: Menerima perintah dari dashboard Adafruit IO untuk mengontrol relay.
+ *
+ * Deskripsi:
+ * Kode ini adalah pengembangan dari Sesi 7. Selain mengirim data,
+ * perangkat kini juga "mendengarkan" (subscribe) sebuah feed kontrol.
+ * Jika kita mengirim pesan ke feed tersebut (misalnya, dengan menekan tombol di dashboard),
+ * perangkat akan merespons dengan menyalakan pompa.
+ *
+ * SEBELUM MEMULAI:
+ * 1. Di Adafruit IO, buat sebuah Feed baru, contohnya "kontrol-pompa".
+ * 2. Di Dashboard, tambahkan elemen "Toggle Button" atau "Push Button".
+ * 3. Hubungkan tombol tersebut ke feed "kontrol-pompa". Atur nilai "ON" menjadi 1 dan "OFF" menjadi 0.
+ *
+ * Rangkaian:
+ * - Tambahkan modul Relay dari Sesi Final sebelumnya.
+ * - IN relay -> GPIO 23
+ * - VCC relay -> 5V, GND relay -> GND
+ */
+
+#include <WiFi.h>
+#include "Adafruit_MQTT.h"
+#include "Adafruit_MQTT_Client.h"
+
+// --- PENGATURAN KONEKSI (UBAH SESUAI DATA ANDA) ---
+#define WIFI_SSID       "NAMA_WIFI_ANDA"
+#define WIFI_PASS       "PASSWORD_WIFI_ANDA"
+#define AIO_SERVER      "io.adafruit.com"
+#define AIO_SERVERPORT  1883
+#define AIO_USERNAME    "USERNAME_ADAFRUIT_IO_ANDA"
+#define AIO_KEY         "AIO_KEY_ADAFRUIT_IO_ANDA"
+
+// --- PENGATURAN PIN ---
+const int relayPin = 23;
+const int soilPin = 34;
+const int nilaiUdara = 4095;
+const int nilaiAir = 1800;
+
+WiFiClient client;
+Adafruit_MQTT_Client mqtt(&client, AIO_SERVER, AIO_SERVERPORT, AIO_USERNAME, AIO_KEY);
+
+// Setup Feed untuk MENGIRIM data kelembapan
+Adafruit_MQTT_Publish soilMoistureFeed = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/kelembapan-tanah");
+
+// Setup Feed untuk MENERIMA perintah kontrol pompa
+Adafruit_MQTT_Subscribe pumpControlFeed = Adafruit_MQTT_Subscribe(&mqtt, AIO_USERNAME "/feeds/kontrol-pompa");
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(relayPin, OUTPUT);
+  digitalWrite(relayPin, HIGH); // Pastikan relay mati
+
+  Serial.println("Mulai Sesi 8: Kontrol Jarak Jauh...");
+  WiFi.begin(WIFI_SSID, WIFI_PASS);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500); Serial.print(".");
+  }
+  Serial.println("\nWiFi terhubung!");
+
+  // Setup langganan (subscription) ke feed kontrol
+  mqtt.subscribe(&pumpControlFeed);
+}
+
+void loop() {
+  MQTT_connect();
+
+  // Bagian ini penting untuk memeriksa pesan baru dari Adafruit IO
+  Adafruit_MQTT_Subscribe *subscription;
+  while ((subscription = mqtt.readSubscription(5000))) {
+    if (subscription == &pumpControlFeed) {
+      Serial.print("Menerima pesan dari kontrol-pompa: ");
+      Serial.println((char *)pumpControlFeed.lastread);
+
+      // Jika pesan adalah "1", nyalakan pompa
+      if (strcmp((char *)pumpControlFeed.lastread, "1") == 0) {
+        siramManual();
+      }
+    }
+  }
+
+  // Kode untuk mengirim data kelembapan tetap berjalan
+  // (dibuat lebih jarang agar tidak mengganggu proses mendengarkan)
+  static unsigned long last_sent_time = 0;
+  if (millis() - last_sent_time > 30000) { // Kirim data setiap 30 detik
+    int persentaseLembap = map(analogRead(soilPin), nilaiUdara, nilaiAir, 0, 100);
+    persentaseLembap = constrain(persentaseLembap, 0, 100);
+    Serial.print("Mengirim kelembapan: "); Serial.print(persentaseLembap); Serial.println("%");
+    soilMoistureFeed.publish(persentaseLembap);
+    last_sent_time = millis();
+  }
+}
+
+void siramManual() {
+  Serial.println("Perintah siram manual diterima! Menyiram...");
+  digitalWrite(relayPin, LOW);  // Nyalakan pompa
+  delay(2000);                  // Siram selama 2 detik
+  digitalWrite(relayPin, HIGH); // Matikan pompa
+  Serial.println("Siram manual selesai.");
+}
+
+void MQTT_connect() {
+  // (Fungsi koneksi sama seperti di Sesi 7)
+  int8_t ret;
+  if (mqtt.connected()) { return; }
+  Serial.print("Menghubungkan ke MQTT... ");
+  uint8_t retries = 3;
+  while ((ret = mqtt.connect()) != 0) {
+       Serial.println(mqtt.connectErrorString(ret));
+       Serial.println("Mencoba lagi dalam 5 detik...");
+       mqtt.disconnect();
+       delay(5000);
+       retries--;
+       if (retries == 0) { while (1); }
+  }
+  Serial.println("MQTT Terhubung!");
+}
+                </code></pre>
+            </div>
+
+            <!-- Sesi 9 Code -->
+            <div id="sesi9_code" class="code-container" style="display:none;">
+                <h3 class="text-2xl font-semibold mb-4 text-gray-200">Kode: Sesi 9 - Notifikasi Telegram</h3>
+                <pre><code class="language-cpp">
+/*
+ * KODE UNTUK SESI 9: AUTOMASI PENUH & NOTIFIKASI TELEGRAM
+ * Tujuan: Mengintegrasikan semua fitur dan menambahkan notifikasi via Telegram.
+ *
+ * Deskripsi:
+ * Ini adalah versi final dari "Simfoni Penjaga Tanaman". Fitur-fiturnya:
+ * - Otomatis menyiram jika tanah kering.
+ * - Bisa disiram manual dari dashboard Adafruit IO.
+ * - Mengirim notifikasi ke Telegram setiap kali penyiraman terjadi.
+ *
+ * SEBELUM MEMULAI:
+ * 1. Instal Library: Buka Library Manager dan instal "Universal Telegram Bot".
+ * 2. Buat Bot Telegram:
+ * - Cari "BotFather" di Telegram.
+ * - Kirim perintah /newbot dan ikuti instruksinya untuk membuat bot baru.
+ * - Catat BOT TOKEN yang diberikan.
+ * 3. Dapatkan Chat ID Anda:
+ * - Cari bot "IDBot" atau "userinfobot" di Telegram.
+ * - Kirim perintah /start, dan ia akan memberitahu Chat ID Anda.
+ *
+ * Rangkaian:
+ * - Sama seperti Sesi 8 (Sensor + Layar OLED + Relay). Tidak ada perubahan hardware.
+ */
+
+#include <WiFi.h>
+#include <WiFiClientSecure.h>
+#include <UniversalTelegramBot.h>
+#include "Adafruit_MQTT.h"
+#include "Adafruit_MQTT_Client.h"
+
+// --- PENGATURAN KONEKSI WIFI & ADAFRUIT IO ---
+#define WIFI_SSID       "NAMA_WIFI_ANDA"
+#define WIFI_PASS       "PASSWORD_WIFI_ANDA"
+#define AIO_SERVER      "io.adafruit.com"
+#define AIO_SERVERPORT  1883
+#define AIO_USERNAME    "USERNAME_ADAFRUIT_IO_ANDA"
+#define AIO_KEY         "AIO_KEY_ADAFRUIT_IO_ANDA"
+
+// --- PENGATURAN TELEGRAM (UBAH SESUAI DATA ANDA) ---
+#define BOT_TOKEN       "TOKEN_BOT_TELEGRAM_ANDA"
+#define CHAT_ID         "CHAT_ID_TELEGRAM_ANDA"
+
+// --- PENGATURAN PIN & LOGIKA ---
+const int relayPin = 23;
+const int soilPin = 34;
+const int ambangBatasKering = 30; // Siram jika di bawah 30%
+const int durasiSiram = 2000;
+const long jedaAntarSiramOtomatis = 3600000; // Tunggu 1 jam (3,600,000 ms) setelah siram otomatis
+
+// --- PENGATURAN KALIBRASI SENSOR ---
+const int nilaiUdara = 4095;
+const int nilaiAir = 1800;
+
+// Inisialisasi semua library
+WiFiClient wifiClient;
+Adafruit_MQTT_Client mqtt(&wifiClient, AIO_SERVER, AIO_SERVERPORT, AIO_USERNAME, AIO_KEY);
+WiFiClientSecure secured_client;
+UniversalTelegramBot bot(BOT_TOKEN, secured_client);
+
+// Feeds Adafruit IO
+Adafruit_MQTT_Publish soilMoistureFeed = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/kelembapan-tanah");
+Adafruit_MQTT_Subscribe pumpControlFeed = Adafruit_MQTT_Subscribe(&mqtt, AIO_USERNAME "/feeds/kontrol-pompa");
+
+unsigned long waktuSiramTerakhir = 0;
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(relayPin, OUTPUT);
+  digitalWrite(relayPin, HIGH);
+
+  WiFi.begin(WIFI_SSID, WIFI_PASS);
+  while (WiFi.status() != WL_CONNECTED) { delay(500); Serial.print("."); }
+  Serial.println("\nWiFi terhubung!");
+
+  mqtt.subscribe(&pumpControlFeed);
+  kirimNotifikasiTelegram("Sistem Penjaga Tanaman Online!");
+}
+
+void loop() {
+  MQTT_connect();
+
+  // Mendengarkan perintah dari Adafruit IO
+  Adafruit_MQTT_Subscribe *subscription;
+  if ((subscription = mqtt.readSubscription(1000))) {
+    if (subscription == &pumpControlFeed && strcmp((char *)pumpControlFeed.lastread, "1") == 0) {
+      Serial.println("Menerima perintah siram manual.");
+      siramTanaman("manual");
+    }
+  }
+
+  // Logika penyiraman otomatis
+  if (millis() - waktuSiramTerakhir > jedaAntarSiramOtomatis) {
+    int persentaseLembap = bacaKelembapan();
+    if (persentaseLembap < ambangBatasKering) {
+      Serial.println("Tanah kering, menyiram otomatis.");
+      siramTanaman("otomatis");
+    }
+    // Kirim data kelembapan ke Adafruit IO setiap 30 detik
+    static unsigned long last_sent_time = 0;
+    if(millis() - last_sent_time > 30000) {
+        soilMoistureFeed.publish(persentaseLembap);
+        last_sent_time = millis();
+    }
+  }
+}
+
+int bacaKelembapan() {
+  int nilaiRasa = analogRead(soilPin);
+  int persentase = map(nilaiRasa, nilaiUdara, nilaiAir, 0, 100);
+  return constrain(persentase, 0, 100);
+}
+
+void siramTanaman(String tipe) {
+  digitalWrite(relayPin, LOW);
+  delay(durasiSiram);
+  digitalWrite(relayPin, HIGH);
+  waktuSiramTerakhir = millis();
+
+  String pesan = "Tanaman telah disiram secara " + tipe + ".\n";
+  pesan += "Kelembapan saat ini: " + String(bacaKelembapan()) + "%";
+  kirimNotifikasiTelegram(pesan);
+}
+
+void kirimNotifikasiTelegram(String pesan) {
+  if (bot.sendMessage(CHAT_ID, pesan, "")) {
+    Serial.println("Notifikasi Telegram terkirim!");
+  } else {
+    Serial.println("Gagal mengirim notifikasi.");
+  }
+}
+
+void MQTT_connect() {
+  // (Fungsi koneksi sama seperti di Sesi 7 & 8)
+  int8_t ret;
+  if (mqtt.connected()) { return; }
+  Serial.print("Menghubungkan ke MQTT... ");
+  uint8_t retries = 3;
+  while ((ret = mqtt.connect()) != 0) {
+       Serial.println(mqtt.connectErrorString(ret));
+       Serial.println("Mencoba lagi dalam 5 detik...");
+       mqtt.disconnect();
+       delay(5000);
+       retries--;
+       if (retries == 0) { while (1); }
+  }
+  Serial.println("MQTT Terhubung!");
+}
+                </code></pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Syntax Highlighting JS from Prism.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+</body>
+</html>
