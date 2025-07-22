@@ -1,6 +1,7 @@
 # Simfoni Penjaga Tanaman
 
 > Sebuah dialog sunyi antara teknologi, awan, dan sejumput nyawa hijau di sudut ruanganmu.
+> Baca di [medium](https://medium.com/@azzar_budiyanto/merajut-nadi-kehidupan-sebuah-dialog-sunyi-dengan-tanaman-anda-melalui-teknologi-5fc4e816561a)
 
 ## Filosofi Proyek: Mendengarkan Bisikan Bumi
 
